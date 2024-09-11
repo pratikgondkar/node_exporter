@@ -1,0 +1,17 @@
+---
+- name: install binary
+  ansible.builtin.get_url:
+    url: https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
+    dest: /home/ubuntu
+    mode: '644'
+
+- name: untar binary file
+  ansible.builtin.unarchive:
+    src: "node_exporter-1.8.2.linux-amd64.tar.gz"
+    dest: /home/ubuntu
+    remote_src: yes
+
+- name: run script
+  ansible.builtin.shell: "./node_exporter"
+  args:
+    chdir: "/home/ubuntu/node_exporter-1.8.2.linux-amd64/"
